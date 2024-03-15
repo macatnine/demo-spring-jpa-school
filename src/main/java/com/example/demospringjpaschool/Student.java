@@ -5,8 +5,16 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
 public class Student {
 
   @Id
@@ -14,11 +22,7 @@ public class Student {
   @Column(name = "id", nullable = false)
   private Long id;
 
-  public Long getId() {
-    return id;
-  }
+  @Column(name = "name", nullable = false)
+  private String name;
 
-  public void setId(Long id) {
-    this.id = id;
-  }
 }
