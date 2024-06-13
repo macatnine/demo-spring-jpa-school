@@ -1,9 +1,11 @@
 package com.example.demospringjpaschool;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.jupiter.api.Test;
@@ -46,8 +48,12 @@ class StudentRestContollerTest {
 
   @Test
   void getStudents() throws Exception {
+    when(studentRepository.findAll()).thenReturn(
+        java.util.Arrays.asList(new Student(1L, "John")));
+
     mockMvc.perform(
             get("/students"))
-        .andExpect(status().isOk());
+        .andExpect(status().isOk())
+        .andExpect(content().json("[{\"id\":1,\"name\":\"John\"}]"));
   }
 }
